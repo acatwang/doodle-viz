@@ -9,7 +9,7 @@ var parcoords = d3.parcoords()("#example")
   .alpha(0.4);
 
 // load csv file and create the chart
-d3.csv('static/data/doodle_data_10.csv', function(data) {
+d3.csv('static/data/doodle_data_10x10.csv', function(data) {
   parcoords
     .data(data)
     .render()
