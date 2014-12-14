@@ -41,7 +41,8 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
       .on("brush", brushmove)
       .on("brushend", brushend);
 
-  var svg = d3.select("body").append("svg")
+  //var svg = d3.select("body").append("svg")
+  var svg = d3.select("#scatterplots").append("svg")
       .attr("width", size * n + padding)
       .attr("height", size * n + padding)
     .append("g")
