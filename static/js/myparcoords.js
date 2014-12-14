@@ -4,7 +4,7 @@ var blue_to_brown = d3.scale.linear()
   .range(["steelblue", "brown"])
   .interpolate(d3.interpolateLab);
 var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
-var parcoords = d3.parcoords()("#example")
+var parcoords = d3.parcoords()("#parcoord")
   .color(color)
   .alpha(0.4);
 
