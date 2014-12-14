@@ -18,7 +18,7 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .ticks(5);
 
-var color = d3.scale.category10();
+var colorGrid = d3.scale.category10();
 
 d3.csv("doodle_data_10-2.csv", function(error, data) {
   var domainByTrait = {},
@@ -97,7 +97,7 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
         .attr("r", 3)
-        .style("fill", function(d) { return color(d.country); });
+        .style("fill", function(d) { return colorGrid(d.country); });
   }
 
   var brushCell;
@@ -119,6 +119,7 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
       return e[0][0] > d[p.x] || d[p.x] > e[1][0]
           || e[0][1] > d[p.y] || d[p.y] > e[1][1];
     });
+
   }
 
   // If the brush is empty, select all circles.
