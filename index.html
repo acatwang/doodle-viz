@@ -2,15 +2,32 @@
 <!-- <head> -->
     <title> InfoViz Final Project </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    
+
     <link rel="stylesheet" type="text/css" href="static/css/d3.parcoords.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
     <link rel="stylesheet" type="text/css" href="scatter.css">
 
+    <!-- Dependencies for parallel coordinate -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <scirpt src="static/js/underscore-min.js"></script>
     <script type="text/javascript" src="static/js/d3.parcoords.js"></script>
     <script src="static/js/divgrid.js"></script>
+
+        <!-- SlickGrid -->
+        <link rel="stylesheet" href="static/js/slickgrid/slick.grid.css" type="text/css"/>
+        <link rel="stylesheet" href="static/js/slickgrid/jquery-ui-1.8.16.custom.css" type="text/css"/>
+        <link rel="stylesheet" href="static/js/slickgrid/examples.css" type="text/css"/>
+        <link rel="stylesheet" href="static/js/slickgrid/slick.pager.css" type="text/css"/>
+        <script src="static/js/slickgrid/jquery-1.7.min.js"></script>
+        <script src="static/js/slickgrid/jquery.event.drag-2.0.min.js"></script>
+        <script src="static/js/slickgrid/slick.core.js"></script>
+        <script src="static/js/slickgrid/slick.grid.js"></script>
+        <script src="static/js/slickgrid/slick.pager.js"></script>
+        <script src="static/js/slickgrid/slick.dataview.js"></script>
+        <!-- End SlickGrid -->
+    <!-- End of Dependencies for parallel coordinate -->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
@@ -28,6 +45,8 @@
 <div id="parcoord" class="parcoords" style="height:200px;"></div>
 
 <div id="grid"></div> <!-- TODO: use slickGrid instead of The table-->
+<div id="pager"></div>
+
 <script src="scatter.js"></script>
 <script src="static/js/myparcoords.js" id="brushing"></script>
 

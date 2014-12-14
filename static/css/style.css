@@ -2,10 +2,11 @@ body {
   font-size: 14px;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   margin: 50px auto 20px;
-  width: 720px;
+  width: 80%; /*720px;*/
   background: #fcfcfc;
   line-height: 1.45em;
 }
+
 a {
   color: #555;
 }
@@ -20,7 +21,7 @@ ul {
   background: #222;
 }
 
-#example,
+#parcoord,
 {
   height: 200px;
   margin: 12px 0;
@@ -55,10 +56,24 @@ input {
   font-size: 16px;
 }
 
-/*Table*/
+/* SlickGrid Table*/
+#grid, #pager {
+  /*position: fixed;*/
+  width: 100%;
+}
+#grid {
+  bottom: 0;
+  height: 300px;
+}
+#pager {
+  bottom: 306px;
+  height: 20px;
+}
+/*
 #grid { height: 198px; }
   .row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
   .row:nth-child(odd) { background: rgba(0,0,0,0.05); }
   .header { font-weight: bold; }
   .cell { float: left; overflow: hidden; white-space: nowrap; width: 100px; height: 18px; }
   .col-0 { width: 180px; }
+*/
