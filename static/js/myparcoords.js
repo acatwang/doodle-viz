@@ -1,17 +1,32 @@
-// quantitative color scale
+// TODO: quantitative color scale for continents
 var blue_to_brown = d3.scale.linear()
   .domain([9, 50])
   .range(["steelblue", "brown"])
   .interpolate(d3.interpolateLab);
 var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
+
+
 var parcoords = d3.parcoords()("#parcoord")
   .color(color)
   .alpha(0.4);
 
 // load csv file and create the chart
+var colOfInterest = ['OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'];
 d3.csv('static/data/doodle_data_v2.csv', function(data) {
+  console.log(data);
+
+
+  //dataOfInterest =  [];
+  dataOfInterest =data.filter(function(row){
+    return row['OverallPaceMeans'];
+    //console.log(_(row).pick('OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));
+    //dataOfInterest.push(_(row).pick('OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
+  })
+  
+
+  console.log(dataOfInterest);
   parcoords
-    .data(data)
+    .data(dataOfInterest)
     .render()
     .brushMode("1D-axes")  // enable brushing
     .reorderable(); // enable reordering
@@ -88,7 +103,7 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     dataView.setItems(data);
     dataView.endUpdate();
   };
-  
+
   /* The following are using example from
    * https://github.com/syntagmatic/parallel-coordinates/blob/master/examples/table.html
   
