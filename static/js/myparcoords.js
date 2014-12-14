@@ -13,7 +13,8 @@ d3.csv('static/data/doodle_data_10x10.csv', function(data) {
   parcoords
     .data(data)
     .render()
-    .brushMode("1D-axes");  // enable brushing
+    .brushMode("1D-axes")  // enable brushing
+    .reorderable(); // enable reordering
   
   // create data table, row hover highlighting
   var grid = d3.divgrid();
