@@ -98,9 +98,10 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     var i = grid.getCellFromEvent(e).row;
     var d = parcoords.brushed() || data;
     parcoords.highlight([d[i]]);
-    console.log("highlight selected points");
-    console.log(i);
-    console.log(d);
+    
+    // Send country name to scatterplot
+    console.log(data[i].country);
+    filterByParCoords(data[i].country);
   });
   grid.onMouseLeave.subscribe(function(e,args) {
     parcoords.unhighlight();
