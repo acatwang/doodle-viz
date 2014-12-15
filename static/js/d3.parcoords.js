@@ -622,6 +622,7 @@ var brush = {
 // @param newSelection - The new set of data items that is currently contained
 //                       by the brushes
 function brushUpdated(newSelection) {
+  console.log(newSelection);
   __.brushed = newSelection;
   events.brush.call(pc,__.brushed);
   pc.render();

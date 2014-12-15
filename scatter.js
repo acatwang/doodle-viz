@@ -234,7 +234,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     //console.log(countries);
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
-    //updateParCoords(countries); 
+    updateParCoords(countries); 
     //parcoords.data(countries); 
 
 

@@ -3,12 +3,14 @@ var blue_to_brown = d3.scale.linear()
   .domain([9, 50])
   .range(["steelblue", "brown"])
   .interpolate(d3.interpolateLab);
-var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
+var color = function(d) { return blue_to_brown(1); };
 
 
 var parcoords = d3.parcoords()("#parcoord")
   .color(color)
   .alpha(0.4);
+
+
 
 // load csv file and create the chart
 var colOfInterest = ['OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'];
@@ -24,6 +26,11 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   })
   console.log(dataOfInterest);
   
+  // function updateParCoords(countries){
+  //   dataOfInterest = $.grep(dataOfInterest, function(e){ return e.country in countries});
+  // }; 
+
+
   parcoords
     .data(dataOfInterest)
     .render()
@@ -33,8 +40,8 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
 
   // slickgrid needs each data element to have an id
   
-  data.forEach(function(d,i) { console.log(d,i);d.id = d.id || i; });
-  dataOfInterest.forEach(function(d,i) { console.log(d,i);d.id = d.id || i; });
+  data.forEach(function(d,i) { d.id = d.id || i; });
+  dataOfInterest.forEach(function(d,i) {d.id = d.id || i; });
   
   // setting up grid
   var column_keys = d3.keys(data[0]);
@@ -91,7 +98,9 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     var i = grid.getCellFromEvent(e).row;
     var d = parcoords.brushed() || data;
     parcoords.highlight([d[i]]);
-    console.log($(this));
+    console.log("highlight selected points");
+    console.log(i);
+    console.log(d);
   });
   grid.onMouseLeave.subscribe(function(e,args) {
     parcoords.unhighlight();
@@ -133,5 +142,38 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     dataView.endUpdate();
   };
 
-  
 }); // End of csv reading
+
+
+function updateParCoords(countries){
+  parcoords.unhighlight();
+
+  console.log("update parcoord");
+  console.log(countries);
+
+  dataOfInterest = [];
+  d3.csv('static/data/doodle_data_v2.csv', function(data) {
+    data.filter(function(row){
+      dataOfInterest.push(_(row).pick('country','IDV','OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
+    })
+    
+     
+    console.log("updated data");
+    dataOfInterest.forEach(function(d,i) {d.id = d.id || i; });
+
+    console.log(dataOfInterest);
+    //console.log($.grep(dataOfInterest, function(e){ return e.country in countries;}));
+    dataOfInterest_filtered = dataOfInterest.filter(function(row){
+      if (countries.indexOf(row.country) > -1){
+        return row;
+      }
+    })
+    console.log(dataOfInterest_filtered);
+
+
+    var d = parcoords.brushed() || dataOfInterest_filtered;
+    console.log(d);
+    parcoords.highlight(d);
+    
+  })
+}; 
