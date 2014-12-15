@@ -102,11 +102,15 @@ svg {
 }
 
 circle {
-  fill-opacity: .7;
+  opacity: 0;
 }
 
 circle.hidden {
   fill: #ccc !important;
+}
+
+.frame ~ circle {
+  opacity: .7;
 }
 
 .extent {

@@ -152,7 +152,6 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     y.domain(domainByTrait[p.y]);
 
     function check(d) {
-            console.log('checking');
 
             switch((n - d.i - 1)){
               case 4:
@@ -182,7 +181,6 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
     cell.append("rect")
         .attr("class", function(d) {
-          
           //Only adds frame for left half of matrix
             if (check(d)) return "frame";
           })
@@ -205,7 +203,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   }
 
-  //document.getElementsByClassName("frame").parentNode.children.getElementsByTagName('')
+  
 
   var brushCell;
 
@@ -253,6 +251,14 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   d3.select(self.frameElement).style("height", size * n + padding + 20 + "px");
 
+  var circles = document.getElementsByClassName("frame");
+  //console.log(circles);
+  //circles = circles[0].parentNode.children.getElementsByTagName('circle');
+  for (var i = 0; i < circles.length; i++) {
+    parent = circles[i].parentNode;
+    //console.log(Object.keys(parent));
+    //parent.getElementsByTagName('circle')[0].className += "inFrame";
+  }
 /*
   //starts
   // quantitative color scale
