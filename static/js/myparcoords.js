@@ -16,11 +16,11 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   console.log(data);
 
 
-  //dataOfInterest =  [];
-  dataOfInterest =data.filter(function(row){
-    return row['OverallPaceMeans'];
+  dataOfInterest =  [];
+  data.filter(function(row){
+    //return row['OverallPaceMeans'];
     //console.log(_(row).pick('OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));
-    //dataOfInterest.push(_(row).pick('OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
+    dataOfInterest.push(_(row).pick('country','IDV','OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
   })
   
 
@@ -33,8 +33,10 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   
 
   // slickgrid needs each data element to have an id
-  data.forEach(function(d,i) { d.id = d.id || i; });
-
+  
+  data.forEach(function(d,i) { console.log(d,i);d.id = d.id || i; });
+  dataOfInterest.forEach(function(d,i) { console.log(d,i);d.id = d.id || i; });
+  
   // setting up grid
   var column_keys = d3.keys(data[0]);
   var columns = column_keys.map(function(key,i) {
@@ -92,43 +94,30 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   grid.onMouseLeave.subscribe(function(e,args) {
     parcoords.unhighlight();
   });
+  
   // fill grid with data
   gridUpdate(data);
+  
   // update grid on brush
   parcoords.on("brush", function(d) {
-    gridUpdate(d);
+    console.log("update grid on brush with this data");
+    console.log(d);
+    //Get an array of selected ids
+    var idlist = [];
+    $.each(d,function(i,obj){
+      idlist.push(obj.id);
+    })
+    
+    console.log(idlist);
+    console.log($.grep(data, function(e){ return e.id in idlist}));
+    gridUpdate($.grep(data, function(e){ return e.id in idlist}));
   });
+
   function gridUpdate(data) {
     dataView.beginUpdate();
     dataView.setItems(data);
     dataView.endUpdate();
   };
 
-  /* The following are using example from
-   * https://github.com/syntagmatic/parallel-coordinates/blob/master/examples/table.html
   
-  // create data table, row hover highlighting
-  var grid = d3.divgrid();
-  d3.select("#grid")
-    .datum(data.slice(0,10))
-    .call(grid)
-    .selectAll(".row")
-    .on({
-      "mouseover": function(d) { parcoords.highlight([d]) },
-      "mouseout": parcoords.unhighlight
-    });
-  
-  // update data table on brush event
-  parcoords.on("brush", function(d) {
-    d3.select("#grid")
-      .datum(d.slice(0,10))
-      .call(grid)
-      .selectAll(".row")
-      .on({
-        "mouseover": function(d) { parcoords.highlight([d]) },
-        "mouseout": parcoords.unhighlight
-      });
-  });
-
-*/
 }); // End of csv reading
