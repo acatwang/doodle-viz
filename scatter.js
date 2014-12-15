@@ -19,7 +19,7 @@ var yAxis = d3.svg.axis()
     .ticks(5);
 
 var colorGrid = d3.scale.category10();
-
+/*
 var blue_to_brown = d3.scale.linear()
   .domain([9, 50])
   .range(["steelblue", "brown"])
@@ -29,7 +29,7 @@ var color = function(d) { return blue_to_brown(d['country']); };
 
 var parcoords = d3.parcoords()("#parcoord")
   .color(color)
-  .alpha(0.4);
+  .alpha(0.4);*/
 
 
 d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
@@ -139,7 +139,13 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
       }
     });
     console.log(countries);
-    parcoords.data(countries);
+
+    /* - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
+
+    //parcoords.data(countries); 
+    
+    ---- ------- -------------------------------
+    */
 
   }
 
@@ -156,7 +162,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   d3.select(self.frameElement).style("height", size * n + padding + 20 + "px");
 
-
+/*
   //starts
   // quantitative color scale
   parcoords
@@ -187,6 +193,6 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         "mouseout": parcoords.unhighlight
       });
   });
-  //ends
+  //ends*/
 
 });
