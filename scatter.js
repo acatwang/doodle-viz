@@ -1,5 +1,5 @@
-var width = 700,
-    size = 100,
+var width = 1000,
+    size = 140,
     padding = 19.5;
 
 var x = d3.scale.linear()
@@ -23,6 +23,15 @@ var colorGrid = d3.scale.category10();
 var blue2red = d3.scale.linear()
   .domain([-1,0,1])
   .range(["blue","white", "red"]);
+
+function filterByParCoords(parData){
+  console.log('hasjdkahjsdkah')
+  d3.selectAll("circle").classed("hidden", function(d) {
+
+      return (parData.indexOf(this.text) == -1);
+      }
+    );
+  }
 
 
 function getCorrelation(var1, var2){
@@ -66,24 +75,7 @@ function getCorrelation(var1, var2){
       
   }
 
-
-  console.log(var1);
-  console.log(var2);
-
 }
-
-//var colorCorr = function(d) { return blue2red(d['GDP']); };
-/*
-var blue_to_brown = d3.scale.linear()
-  .domain([9, 50])
-  .range(["steelblue", "brown"])
-  .interpolate(d3.interpolateLab);
-
-var color = function(d) { return blue_to_brown(d['country']); };
-
-var parcoords = d3.parcoords()("#parcoord")
-  .color(color)
-  .alpha(0.4);*/
 
 
 d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
@@ -221,20 +213,20 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
   // Highlight the selected circles.
   function brushmove(p) {
     var e = brush.extent();
-    var countries = [];
+    var brushedCountries = [];
     svg.selectAll("circle").classed("hidden", function(d) {
 
       if (!(e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1])){
-        if (countries.indexOf(d["country"]) == -1) {
-          countries.push(d["country"]);
+        if (brushedCountries.indexOf(d["country"]) == -1) {
+          brushedCountries.push(d["country"]);
         }
       }
       else return 1;
     });
-    console.log(countries);
+    console.log(brushedCountries);
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
-    updateParCoords(countries); 
+    updateParCoords(brushedCountries); 
     //parcoords.data(countries); 
   }
 
