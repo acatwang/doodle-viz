@@ -224,18 +224,18 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     var countries = [];
     svg.selectAll("circle").classed("hidden", function(d) {
 
-      if (e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1]){
-        if (countries.indexOf(d["country"]) == -1) countries.push(d["country"]);
-        return 1;
+      if (!(e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1])){
+        if (countries.indexOf(d["country"]) == -1) {
+          countries.push(d["country"]);
+        }
       }
+      else return 1;
     });
-    //console.log(countries);
+    console.log(countries);
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     updateParCoords(countries); 
     //parcoords.data(countries); 
-
-
   }
 
   // If the brush is empty, select all circles.
