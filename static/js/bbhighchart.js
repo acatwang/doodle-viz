@@ -18,14 +18,19 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
 
 
     $.each(data, function(idx,obj){
-    // d = {'shape': "circle",
-    //         'size': obj['fraction_consensus_polls_open'],
-    //         'x': obj['IDV'],
-    //         'y': obj['OverallPaceMeans']}
+    d = {'shape': "circle",
+            'z': parseFloat(obj['fraction_consensus_polls_open']),
+            'x': parseFloat(obj['IDV']),
+            'y': parseFloat(obj['OverallPaceMeans']),
+            'country':obj['country']};
     if (parseInt(obj['OverallPaceMeans']) != NaN){
-        d = [parseFloat(obj['IDV']), parseFloat(obj['OverallPaceMeans']), parseFloat(obj['fraction_consensus_polls_open'])]
+        // d = [parseFloat(obj['IDV']), 
+        //      parseFloat(obj['OverallPaceMeans']), 
+        //      parseFloat(obj['fraction_consensus_polls_open']),
+        //      obj['country']]
         if (obj['continent'] == "North America"){
           chartData[0].data.push(d);
+
         }
         else if (obj['continent'] == "South America"){
           chartData[1].data.push(d);
@@ -42,25 +47,50 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     console.log(chartData);
     console.log(d);
 
+    var legend = "Collectivism";
     $(function () {
         $('#chart').highcharts({
 
             chart: {
                 type: 'bubble',
-                zoomType: 'xy'
+                zoomType: 'xy',
+                marginRight: 35
             },
 
             title: {
                 text: 'YO'
             },
 
+            xAxis: {
+            min:10,
+            max:100,
+            title: {
+                
+                text: legend.concat(Array(100).join('\u00a0'),'Individualism')
+                //align: 'center'
+            }
+        },
+            yAxis: {
+            lineWidth: 1,
+            tickWidth: 1,
+            max: 5,
+            title: {
+                //align: 'high',
+                //offset: 0,
+                text: 'Overall Pace of Life',
+                //rotation: 0,
+                y: -10
+            }
+        },
             // tooltip: {
             //      pointFormat: "Value: {point.y:.2f}"
             // },
 
             tooltip: {
             formatter: function () {
-                return 'the IDV score is <b>' + this.x +
+                console.log(this.point);
+
+                return this.series.name + '(' + this.point.country+ ') <br>' + 'the IDV score is <b>' + this.x +
                     '</b> <br>the pace of life score is <b>' + this.y + '</b>';
                  }   
             },
