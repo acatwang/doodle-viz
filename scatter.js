@@ -227,6 +227,6 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         "mouseout": parcoords.unhighlight
       });
   });
-  //ends*/
+*/
 
 });
