@@ -55,6 +55,10 @@ input {
   font-size: 16px;
 }
 
+#chart svg {
+  height: 400px;
+}
+
 /*Table*/
 #grid { height: 198px; }
   .row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }

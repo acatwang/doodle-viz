@@ -14,13 +14,22 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
+    <!-- Dependency of Chart, using nvd3 -->
+    <script src="static/js/nv.d3.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
   
 <!-- </head>
 <body> -->
 <h1> This is a visualization for SI649 final project </h1>
 
 <!-- The chart visualize correaltion between fraction of consensus, individualism and paceOfLife -->
-<div id="chart">
+<div id="chart" style="height: 400px; min-width: 310px; max-width: 600px; margin: 0 auto">
+    <p> There should be a chart here </p>
+    <svg></svg>
+</div>
 
 <!-- The scatterplots and correlation heatmap -->
 <div id="scatterplots"></div> 
@@ -30,7 +39,7 @@
 <div id="grid"></div> <!-- TODO: use slickGrid instead of The table-->
 <script src="scatter.js"></script>
 <script src="static/js/myparcoords.js" id="brushing"></script>
-
+<script src="static/js/bbhighchart.js"></script>
 
 
 
