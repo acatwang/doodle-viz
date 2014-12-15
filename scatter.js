@@ -21,7 +21,7 @@ var yAxis = d3.svg.axis()
 var colorGrid = d3.scale.category10();
 
 var blue2red = d3.scale.linear()
-  .domain([0,602419])
+  .domain([0,700000])
   .range(["blue","red"]);
 
 var colorCorr = function(d) { return blue2red(d['GDP']); };
