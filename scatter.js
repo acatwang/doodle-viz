@@ -21,10 +21,57 @@ var yAxis = d3.svg.axis()
 var colorGrid = d3.scale.category10();
 
 var blue2red = d3.scale.linear()
-  .domain([0,700000])
-  .range(["blue","red"]);
+  .domain([-1,0,1])
+  .range(["blue","white", "red"]);
 
-var colorCorr = function(d) { return blue2red(d['GDP']); };
+
+function getCorrelation(var1, var2){
+
+  var corrString = var1.concat(var2);
+
+  if (var1.indexOf(var2) != -1) return 1
+  else {
+
+    if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('GDP') != -1) {
+      return 0.4448433;
+    }
+    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('PDI') != -1){
+      return -0.2261446;
+    }
+    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('IDV') != -1) {
+      return 0.3449168;
+    }
+    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
+      return -0.2623105;
+    }
+    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('PDI') != -1) {
+      return -0.4465107;
+    }
+    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('IDV') != -1) {
+      return 0.3213045;
+    }
+    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
+      return -0.5875585;
+    }
+    else if (corrString.indexOf('PDI') != -1 && corrString.indexOf('IDV') != -1) {
+      return -0.593616;
+    }
+    else if (corrString.indexOf('PDI') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
+      return 0.6111763;
+    }
+    else if (corrString.indexOf('IDV') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
+      return -0.4305057;
+    }
+      
+  }
+
+
+  console.log(var1);
+  console.log(var2);
+
+}
+
+//var colorCorr = function(d) { return blue2red(d['GDP']); };
 /*
 var blue_to_brown = d3.scale.linear()
   .domain([9, 50])
@@ -43,6 +90,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
       traits = d3.keys(data[0]).filter(function(d) { return d !== "continent" && d !== "country"; }),
       traits = traits.slice(0,5)
       n = traits.length;
+
 
 
   traits.forEach(function(trait) {
@@ -132,9 +180,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         .attr("x", padding / 2)
         .attr("y", padding / 2)
         .attr("fill", function(d){
-
-          //adds fill for correlation 
-          return colorCorr;
+          return blue2red(getCorrelation(d.x, d.y));
         })
         .attr("width", size - padding)
         .attr("height", size - padding);
@@ -174,10 +220,10 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         return 1;
       }
     });
-    console.log(countries);
+    //console.log(countries);
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
-    updateParCoords(countries); 
+    //updateParCoords(countries); 
     //parcoords.data(countries); 
 
 
