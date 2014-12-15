@@ -1,5 +1,5 @@
-var width = 480,
-    size = 75,
+var width = 700,
+    size = 100,
     padding = 19.5;
 
 var x = d3.scale.linear()
@@ -20,10 +20,22 @@ var yAxis = d3.svg.axis()
 
 var colorGrid = d3.scale.category10();
 
-d3.csv("doodle_data_10-2.csv", function(error, data) {
+var blue_to_brown = d3.scale.linear()
+  .domain([9, 50])
+  .range(["steelblue", "brown"])
+  .interpolate(d3.interpolateLab);
+
+var color = function(d) { return blue_to_brown(d['country']); };
+
+var parcoords = d3.parcoords()("#parcoord")
+  .color(color)
+  .alpha(0.4);
+
+
+d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
   var domainByTrait = {},
-      traits = d3.keys(data[0]).filter(function(d) { return d !== "locale" && d !== "country"; }),
-      //traits = traits.slice(0,1,2,7,8)
+      traits = d3.keys(data[0]).filter(function(d) { return d !== "continent" && d !== "country"; }),
+      traits = traits.slice(0,5)
       n = traits.length;
 
 
@@ -96,8 +108,10 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
       .enter().append("circle")
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
-        .attr("r", 3)
-        .style("fill", function(d) { return colorGrid(d.country); });
+        .attr("r", 4)
+        .attr("dataCountry", function(d) {return d["country"];})
+        .style("fill", function(d) { return colorGrid(d.continent); })
+        .text(function(d) {return d["country"];});
   }
 
   var brushCell;
@@ -108,6 +122,7 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
       d3.select(brushCell).call(brush.clear());
       x.domain(domainByTrait[p.x]);
       y.domain(domainByTrait[p.y]);
+//    console.log(domainByTrait);
       brushCell = this;
     }
   }
@@ -115,10 +130,16 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
   // Highlight the selected circles.
   function brushmove(p) {
     var e = brush.extent();
+    var countries = [];
     svg.selectAll("circle").classed("hidden", function(d) {
-      return e[0][0] > d[p.x] || d[p.x] > e[1][0]
-          || e[0][1] > d[p.y] || d[p.y] > e[1][1];
+
+      if (e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1]){
+        if (countries.indexOf(d["country"]) == -1) countries.push(d["country"]);
+        return 1;
+      }
     });
+    console.log(countries);
+    parcoords.data(countries);
 
   }
 
@@ -134,4 +155,38 @@ d3.csv("doodle_data_10-2.csv", function(error, data) {
   }
 
   d3.select(self.frameElement).style("height", size * n + padding + 20 + "px");
+
+
+  //starts
+  // quantitative color scale
+  parcoords
+    .data(data)
+    .render()
+    .brushMode("1D-axes")  // enable brushing
+    .reorderable(); // enable reordering
+  
+  // create data table, row hover highlighting
+  var grid = d3.divgrid();
+  d3.select("#grid")
+    .datum(data.slice(0,10))
+    .call(grid)
+    .selectAll(".row")
+    .on({
+      "mouseover": function(d) { parcoords.highlight([d]) },
+      "mouseout": parcoords.unhighlight
+    });
+  
+  // update data table on brush event
+  parcoords.on("brush", function(d) {
+    d3.select("#grid")
+      .datum(d.slice(0,10))
+      .call(grid)
+      .selectAll(".row")
+      .on({
+        "mouseover": function(d) { parcoords.highlight([d]) },
+        "mouseout": parcoords.unhighlight
+      });
+  });
+  //ends
+
 });
