@@ -22,7 +22,7 @@ var colorGrid = d3.scale.category10();
 
 var blue2red = d3.scale.linear()
   .domain([0,602419])
-  .range(["blue","red"])
+  .range(["blue","red"]);
 
 var colorCorr = function(d) { return blue2red(d['GDP']); };
 /*
@@ -106,7 +106,6 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         .attr("class", function(d) {
           
           //Only adds frame for left half of matrix
-
             switch((n - d.i - 1)){
               case 4:
                 if (d.j < 1)

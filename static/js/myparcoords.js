@@ -11,6 +11,7 @@ var parcoords = d3.parcoords()("#parcoord")
   .alpha(0.4);
 
 // load csv file and create the chart
+<<<<<<< Updated upstream
 var colOfInterest = ['OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'];
 d3.csv('static/data/doodle_data_v2.csv', function(data) {
   console.log(data);
@@ -26,6 +27,11 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   
   parcoords
     .data(dataOfInterest)
+=======
+d3.csv('static/data/doodle_data_10x10.csv', function(data) {
+  parcoords("#parcoord")
+    .data(data)
+>>>>>>> Stashed changes
     .render()
     .brushMode("1D-axes")  // enable brushing
     .reorderable(); // enable reordering
