@@ -251,45 +251,4 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   d3.select(self.frameElement).style("height", size * n + padding + 20 + "px");
 
-  var circles = document.getElementsByClassName("frame");
-  //console.log(circles);
-  //circles = circles[0].parentNode.children.getElementsByTagName('circle');
-  for (var i = 0; i < circles.length; i++) {
-    parent = circles[i].parentNode;
-    //console.log(Object.keys(parent));
-    //parent.getElementsByTagName('circle')[0].className += "inFrame";
-  }
-/*
-  //starts
-  // quantitative color scale
-  parcoords
-    .data(data)
-    .render()
-    .brushMode("1D-axes")  // enable brushing
-    .reorderable(); // enable reordering
-  
-  // create data table, row hover highlighting
-  var grid = d3.divgrid();
-  d3.select("#grid")
-    .datum(data.slice(0,10))
-    .call(grid)
-    .selectAll(".row")
-    .on({
-      "mouseover": function(d) { parcoords.highlight([d]) },
-      "mouseout": parcoords.unhighlight
-    });
-  
-  // update data table on brush event
-  parcoords.on("brush", function(d) {
-    d3.select("#grid")
-      .datum(d.slice(0,10))
-      .call(grid)
-      .selectAll(".row")
-      .on({
-        "mouseover": function(d) { parcoords.highlight([d]) },
-        "mouseout": parcoords.unhighlight
-      });
-  });
-*/
-
 });
