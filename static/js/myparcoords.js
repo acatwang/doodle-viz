@@ -100,8 +100,8 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     parcoords.highlight([d[i]]);
     
     // Send country name to scatterplot
-    console.log(data[i].country);
-    filterByParCoords(data[i].country);
+    console.log([data[i].country]);
+    filterByParCoords([data[i].country]);
   });
   grid.onMouseLeave.subscribe(function(e,args) {
     parcoords.unhighlight();
