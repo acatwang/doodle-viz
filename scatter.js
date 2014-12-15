@@ -19,6 +19,12 @@ var yAxis = d3.svg.axis()
     .ticks(5);
 
 var colorGrid = d3.scale.category10();
+
+var blue2red = d3.scale.linear()
+  .domain([0,602419])
+  .range(["blue","red"])
+
+var colorCorr = function(d) { return blue2red(d['GDP']); };
 /*
 var blue_to_brown = d3.scale.linear()
   .domain([9, 50])
@@ -97,9 +103,40 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     y.domain(domainByTrait[p.y]);
 
     cell.append("rect")
-        .attr("class", "frame")
+        .attr("class", function(d) {
+          
+          //Only adds frame for left half of matrix
+
+            switch((n - d.i - 1)){
+              case 4:
+                if (d.j < 1)
+                return "frame";
+                break;
+              case 3:
+                if (d.j < 2)
+                return "frame";  
+                  break;
+              case 2:
+                if (d.j < 3)
+                return "frame";    
+                  break;
+              case 1:
+                if (d.j != 4)
+                return "frame";    
+                  break;
+              case 0:
+                  return "frame";
+                  break;
+            }
+
+          })
         .attr("x", padding / 2)
         .attr("y", padding / 2)
+        .attr("fill", function(d){
+
+          //adds fill for correlation 
+          return colorCorr;
+        })
         .attr("width", size - padding)
         .attr("height", size - padding);
 
@@ -116,7 +153,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   var brushCell;
 
-  // Clear the previously-active brush, if any.
+  // Clear the previously-active brush
   function brushstart(p) {
     if (brushCell !== this) {
       d3.select(brushCell).call(brush.clear());
@@ -140,12 +177,10 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     });
     console.log(countries);
 
-    /* - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
-
+    // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
+    updateParCoords(countries); 
     //parcoords.data(countries); 
-    
-    ---- ------- -------------------------------
-    */
+
 
   }
 
