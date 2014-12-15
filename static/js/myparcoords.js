@@ -22,9 +22,8 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     //console.log(_(row).pick('OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));
     dataOfInterest.push(_(row).pick('country','IDV','OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
   })
-  
-
   console.log(dataOfInterest);
+  
   parcoords
     .data(dataOfInterest)
     .render()
@@ -85,16 +84,29 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
       dataView.sort(comparer, args.sortAsc);
     }
   });
+
   // highlight row in chart
+
   grid.onMouseEnter.subscribe(function(e,args) {
     var i = grid.getCellFromEvent(e).row;
     var d = parcoords.brushed() || data;
     parcoords.highlight([d[i]]);
+    console.log($(this));
   });
   grid.onMouseLeave.subscribe(function(e,args) {
     parcoords.unhighlight();
   });
   
+  $('.slick-cell').mouseenter(function () {
+     $(this.parentNode.children).addClass('slick-cell-hovered') ;
+  });
+
+  $('.slick-cell').mouseleave(function () {
+       $(this.parentNode.children).removeClass('slick-cell-hovered');
+  });
+
+
+
   // fill grid with data
   gridUpdate(data);
   
@@ -111,6 +123,8 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     console.log(idlist);
     console.log($.grep(data, function(e){ return e.id in idlist}));
     gridUpdate($.grep(data, function(e){ return e.id in idlist}));
+
+
   });
 
   function gridUpdate(data) {

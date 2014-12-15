@@ -4,6 +4,10 @@ In order to preserve the uniform grid appearance, all cell styles need to have p
 No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
 classes should alter those!
 */
+.slick-cell-hover{
+  background-color: yellow;
+}
+
 
 .slick-header.ui-state-default, .slick-headerrow.ui-state-default {
   width: 100%;
@@ -23,7 +27,7 @@ classes should alter those!
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 16px;
+  height: 20px;
   line-height: 16px;
   margin: 0;
   padding: 4px;
