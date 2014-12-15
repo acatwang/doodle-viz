@@ -27,6 +27,7 @@ var blue2red = d3.scale.linear()
 
 function getCorrelation(var1, var2){
 
+  // gets variables for correlation
   var corrString = var1.concat(var2);
 
   if (var1.indexOf(var2) != -1) return 1
@@ -150,38 +151,44 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
     x.domain(domainByTrait[p.x]);
     y.domain(domainByTrait[p.y]);
 
+    function check(d) {
+            console.log('checking');
+
+            switch((n - d.i - 1)){
+              case 4:
+                if (d.j < 1)
+                return 1;
+                break;
+              case 3:
+                if (d.j < 2)
+                return 1;  
+                  break;
+              case 2:
+                if (d.j < 3)
+                return 1;    
+                  break;
+              case 1:
+                if (d.j != 4)
+                return 1;    
+                  break;
+              case 0:
+                  return 1;
+                  break;
+              default:
+                  return 0;
+                  break;
+            }
+    }
+
     cell.append("rect")
         .attr("class", function(d) {
           
           //Only adds frame for left half of matrix
-            switch((n - d.i - 1)){
-              case 4:
-                if (d.j < 1)
-                return "frame";
-                break;
-              case 3:
-                if (d.j < 2)
-                return "frame";  
-                  break;
-              case 2:
-                if (d.j < 3)
-                return "frame";    
-                  break;
-              case 1:
-                if (d.j != 4)
-                return "frame";    
-                  break;
-              case 0:
-                  return "frame";
-                  break;
-            }
-
+            if (check(d)) return "frame";
           })
         .attr("x", padding / 2)
         .attr("y", padding / 2)
-        .attr("fill", function(d){
-          return blue2red(getCorrelation(d.x, d.y));
-        })
+        .attr("fill", function(d){return blue2red(getCorrelation(d.x, d.y));})
         .attr("width", size - padding)
         .attr("height", size - padding);
 
@@ -191,10 +198,14 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
         .attr("r", 4)
-        .attr("dataCountry", function(d) {return d["country"];})
-        .style("fill", function(d) { return colorGrid(d.continent); })
+        .style("fill", function(d) { 
+          return colorGrid(d.continent); 
+        })
         .text(function(d) {return d["country"];});
+
   }
+
+  //document.getElementsByClassName("frame").parentNode.children.getElementsByTagName('')
 
   var brushCell;
 
