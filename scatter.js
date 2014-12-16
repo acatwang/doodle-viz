@@ -27,13 +27,15 @@ var blue2red = d3.scale.linear()
 
 function filterByParCoords(parData){
 
+    //Filter scatterplot by parallel coordinate data
+
     parFilterCircles = document.getElementsByTagName('circle');
-    console.log(parFilterCircles);
+
 
     for (var par in parFilterCircles){
         parFilterCircles[par].setAttribute('class','');
         innerContent = parFilterCircles[par].textContent || parFilterCircles[par].innerText;
-        console.log(innerContent);
+
         if (parData.indexOf(innerContent) == -1){
           parFilterCircles[par].setAttribute('class','hidden');
       }
@@ -92,8 +94,6 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       console.log(traits);
       traits = traits.slice(3,5).concat(traits.slice(7,10))
       n = traits.length;
-
-
 
   traits.forEach(function(trait) {
     domainByTrait[trait] = d3.extent(data, function(d) { return +d[trait]; });
@@ -210,10 +210,7 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
 
   // Clear the previously-active brush
   function brushstart(p) {
-    // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     // Draw a new ParCoord when the brush reset
-    //console.log("clear brush, draw a new PC");
-    //drawParCoords();
     parcoords.brushReset();
 
     if (brushCell !== this) {
@@ -243,6 +240,7 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     updateParCoords(brushedCountries); 
+    console.log("brushedCountries: ", brushedCountries);
     //parcoords.data(countries); 
   }
 
