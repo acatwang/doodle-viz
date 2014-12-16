@@ -13,7 +13,7 @@ var parcoords = d3.parcoords()("#parcoord")
 drawParCoords();
 
 function drawParCoords(scatterplot_select){
-  //console.log(scatterplot_select);
+  console.log(scatterplot_select);
   //console.log(typeof(scatterplot_select)=='undefined');
   d3.csv('static/data/doodle_data_v3.csv', function(data) {
     console.log(data);
@@ -33,7 +33,7 @@ function drawParCoords(scatterplot_select){
         console.log("get countries")
         var idlist_scatterplot = []
         dataOfInterest = dataOfInterest.filter(function(row){
-          if (scatterplot_select.indexOf(row.country) > -1){
+          if (scatterplot_select.indexOf(row.Country) > -1){
             idlist_scatterplot.push(row.id);
             return row;
           }
@@ -209,5 +209,6 @@ function drawParCoords(scatterplot_select){
 
 
 function updateParCoords(countries){
+  console.log(countries);
   drawParCoords(countries);
 }
