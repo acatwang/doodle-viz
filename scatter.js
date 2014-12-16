@@ -28,11 +28,12 @@ var blue2red = d3.scale.linear()
 function filterByParCoords(parData){
 
     parFilterCircles = document.getElementsByTagName('circle');
-    //console.log(parFilterCircles);
+    console.log(parFilterCircles);
 
     for (var par in parFilterCircles){
         parFilterCircles[par].setAttribute('class','');
         innerContent = parFilterCircles[par].textContent || parFilterCircles[par].innerText;
+        console.log(innerContent);
         if (parData.indexOf(innerContent) == -1){
           parFilterCircles[par].setAttribute('class','hidden');
       }
@@ -232,8 +233,8 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
     svg.selectAll("circle").classed("hidden", function(d) {
 
       if (!(e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1])){
-        if (brushedCountries.indexOf(d["country"]) == -1) {
-          brushedCountries.push(d["country"]);
+        if (brushedCountries.indexOf(d["Country"]) == -1) {
+          brushedCountries.push(d["Country"]);
         }
       }
       else return 1;
