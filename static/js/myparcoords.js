@@ -29,14 +29,16 @@ function drawParCoords(scatterplot_select){
     
     // Update parcoord when user select nodes in scatterplot
     if (typeof(scatterplot_select) != 'undefined'){
-      console.log("get countries")
-      var idlist_scatterplot = []
-      dataOfInterest = dataOfInterest.filter(function(row){
-        if (scatterplot_select.indexOf(row.country) > -1){
-          idlist_scatterplot.push(row.id);
-          return row;
-        }
-      })
+      if(scatterplot_select.length >0){
+        console.log("get countries")
+        var idlist_scatterplot = []
+        dataOfInterest = dataOfInterest.filter(function(row){
+          if (scatterplot_select.indexOf(row.country) > -1){
+            idlist_scatterplot.push(row.id);
+            return row;
+          }
+        })
+      }
     }
 
     parcoords

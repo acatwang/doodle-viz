@@ -206,7 +206,12 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   // Clear the previously-active brush
   function brushstart(p) {
-    parcoords.brushReset();
+    // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
+    // Draw a new ParCoord when the brush reset
+    console.log("clear brush, draw a new PC");
+    drawParCoords();
+//    parcoords.brushReset();
+
     if (brushCell !== this) {
       d3.select(brushCell).call(brush.clear());
       x.domain(domainByTrait[p.x]);
