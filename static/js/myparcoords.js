@@ -19,7 +19,7 @@ function drawParCoords(scatterplot_select){
     console.log(data);
     dataOfInterest =  [];
     data.filter(function(row){
-      dataOfInterest.push(_(row).pick('Country','IDV','Pace of Life','Fraction of Consensus' ));//,'Response Time','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
+      dataOfInterest.push(_(row).pick('Country','IDV','Fraction of Consensus', 'Pace of Life', 'Response Time', 'Planning Ahead of Time'));  
     })
     console.log(dataOfInterest);
     
