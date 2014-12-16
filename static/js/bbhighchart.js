@@ -48,55 +48,119 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     console.log(d);
 
     var legend = "Collectivism";
+    var pace ='Quick'
     $(function () {
         $('#chart').highcharts({
 
             chart: {
                 type: 'bubble',
                 zoomType: 'xy',
-                marginRight: 35
+                marginRight: 165,
+                spacingBottom: 35,
+                spacingLeft: 15
+
             },
 
             title: {
-                text: 'YO'
+                text: '<b>Pace of Life Scores in relation to Individualism Scores & Fraction of Consensus</b>',
+                style: {
+                    fontSize: '14px'
+                }
             },
-
-            xAxis: {
-            min:10,
-            max:100,
-            title: {
-                
-                text: legend.concat(Array(100).join('\u00a0'),'Individualism')
-                //align: 'center'
-            }
-        },
-            yAxis: {
-            lineWidth: 1,
-            tickWidth: 1,
-            max: 5,
-            title: {
-                //align: 'high',
-                //offset: 0,
-                text: 'Overall Pace of Life',
-                //rotation: 0,
-                y: -10
-            }
-        },
+            subtitle:{
+                text: 'Larger bubble indicates higher level of consensus'
+            },
+            xAxis: [{
+                min:10,
+                max:100,
+                title: {  
+                    text: legend.concat(Array(100).join('\u00a0'),'Individualism'),
+                    x:40
+                    //align: 'center'
+                }
+            },
+            { //--- Primary yAxis
+               lineWidth:0,
+                title: {
+                    text: '<b>Hofstede\'s Individualism/Collectivism Dimension</b>'
+                }
+            }],
+           
+            yAxis: [{ //--- Secondary yAxis
+                lineWidth: 1,
+                tickWidth: 1,
+                max: 5,
+                title: {
+                    text: pace.concat(Array(60).join('\u00a0'),'Slow'),
+                    align: 'high',
+                    //offset:0,
+                    y: -10  
+                    },
+                    // opposite: true
+                },    
+                { //--- Primary yAxis
+                title: {
+                    text: '<b>Overall Pace of Life</b>'
+                }
+    }],
             // tooltip: {
             //      pointFormat: "Value: {point.y:.2f}"
             // },
+            legend: {
+                title: {
+                    text: 'Continent',
+                    },
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100
+        },
 
             tooltip: {
             formatter: function () {
-                console.log(this.point);
+                //console.log(this.point);
 
-                return this.series.name + '(' + this.point.country+ ') <br>' + 'the IDV score is <b>' + this.x +
-                    '</b> <br>the pace of life score is <b>' + this.y + '</b>';
+                return '<b>'+this.point.country+'</b> (' + this.series.name+ ') <br>' + 'IDV score is <b>' + this.x +
+                    '</b> <br>Pace of Life score is <b>' + this.y + '</b>';
                  }   
             },
 
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        //format: '{point.z:,.1f}',
+                        //crop: false,
+                        //overflow:'none',
+                        align:'left',
+                        style: {
+                            fontSize: '9px',
+                            color: '#6d7e8c',
+                            textShadow: '0px 0px 0px'
+                            },
+                        formatter: function(){
+                            /*
+                                if(this.point.country.length>8) {
+                                    console.log(this.point);
+                                    this.point.z.attr({x:20})
+                                };
+                                */
+                                return this.point.country + '<br/>' + Math.round(100*this.point.z)/100 ;
+                            }
+                                          
+                            
+                    }
+                },
+                bubble: {
+                    minSize:20,
+                    maxSize:50
+                }
+            },
+
             //x-axis title 
-            //label the size of the bubble
+            //TODO: label the size of the bubble
+
 
             series: chartData
             /* [{

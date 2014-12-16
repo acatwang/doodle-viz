@@ -113,6 +113,12 @@ circle.hidden {
   fill: #ccc !important;
 }
 
+/* Show the circle in the chart */
+g.highcharts-series circle, g.highcharts-legend-item circle{
+  opacity: 1;
+}
+
+
 .frame ~ circle {
   opacity: .7;
 }
