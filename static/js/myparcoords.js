@@ -50,7 +50,9 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
       id: key,
       name: key,
       field: key,
-      sortable: true
+      sortable: true,
+      selectable: true,
+
     }
   });
 
@@ -63,6 +65,9 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
   var dataView = new Slick.Data.DataView();
   var grid = new Slick.Grid("#grid", dataView, columns, options);
   var pager = new Slick.Controls.Pager(dataView, grid, $("#pager"));
+
+  grid.setSelectionModel(new Slick.RowSelectionModel());
+
 
   // wire up model events to drive the grid
   dataView.onRowCountChanged.subscribe(function (e, args) {
@@ -92,19 +97,27 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     }
   });
 
-  // highlight row in chart
+  // highlight row in chart when hover
 
   grid.onMouseEnter.subscribe(function(e,args) {
+
     var i = grid.getCellFromEvent(e).row;
+    
     var d = parcoords.brushed() || data;
-    parcoords.highlight([d[i]]);
+    if (grid.getSelectedRows().length == 0) parcoords.highlight([d[i]]);
     
     // Send country name to scatterplot
     console.log([data[i].country]);
     filterByParCoords([data[i].country]);
   });
+
   grid.onMouseLeave.subscribe(function(e,args) {
-    parcoords.unhighlight();
+    if (grid.getSelectedRows().length == 0) parcoords.unhighlight();
+    countrylist = [] 
+    $.each(data, function(i,obj){
+      countrylist.push(obj['country']);
+    })
+    filterByParCoords(countrylist)
   });
   
   $('.slick-cell').mouseenter(function () {
@@ -115,6 +128,25 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
        $(this.parentNode.children).removeClass('slick-cell-hovered');
   });
 
+  // click to highlight row 
+
+  grid.onClick.subscribe(function(e){
+    var cell = grid.getCellFromEvent(e);
+      console.log(cell.row);//Here is the row id, I want to change this row background color
+      grid.setSelectedRows(cell.row);
+
+  })
+
+  grid.onSelectedRowsChanged.subscribe(function(e){
+    console.log("selectedrowchanged");
+    selectedrows = grid.getSelectedRows();
+    console.log(selectedrows);
+
+    var d = parcoords.brushed() || data;
+    console.log(d);
+    console.log(d.filter(function(obj){return selectedrows.indexOf(obj.id) > -1}));
+    parcoords.highlight(d.filter(function(obj){return selectedrows.indexOf(obj.id) > -1}));
+  })
 
 
   // fill grid with data
