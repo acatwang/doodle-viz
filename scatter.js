@@ -20,6 +20,10 @@ var yAxis = d3.svg.axis()
 
 var colorGrid = d3.scale.category10();
 
+var colorContinent = d3.scale.ordinal()
+    .domain(["Asia", "Europe", "South America", "North America", "Africa", "Australia"])
+    .range(["rgb(247, 163, 92)", "rgb(144, 237, 125)", "rgb(67, 67, 72)", "rgb(124, 181, 236)", "rgb(181, 100, 71)","rgb(85, 181, 204)"])
+
 var blue2red = d3.scale.linear()
   .domain([-1,0,1])
   .range(["blue","white", "red"]);
@@ -196,11 +200,13 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       .enter().append("circle")
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
-        .attr("r", 2)
+        .attr("r", 3)
         .style("fill", function(d) { 
-          return colorGrid(d.Continent); 
+          return colorContinent(d.Continent); 
         })
-        .text(function(d) {return d["Country"];});
+        .text(function(d) {return d["Country"];})
+        .append("svg:title")
+        .text(function(d) { return d.x; });
 
   }
 
@@ -217,7 +223,6 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       d3.select(brushCell).call(brush.clear());
       x.domain(domainByTrait[p.x]);
       y.domain(domainByTrait[p.y]);
-//    console.log(domainByTrait);
       brushCell = this;
     }
 
@@ -236,8 +241,6 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       }
       else return 1;
     });
-    //console.log(brushedCountries);
-
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     updateParCoords(brushedCountries); 
     console.log("brushedCountries: ", brushedCountries);

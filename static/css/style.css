@@ -128,6 +128,7 @@ g.highcharts-series circle, g.highcharts-legend-item circle{
   fill-opacity: .125;
   stroke: #fff;
 }
+
 /*
 #grid { height: 198px; }
   .row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
