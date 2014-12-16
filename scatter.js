@@ -1,5 +1,5 @@
 var width = 1000,
-    size = 140,
+    size = 80,
     padding = 19.5;
 
 var x = d3.scale.linear()
@@ -192,7 +192,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
       .enter().append("circle")
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
-        .attr("r", 4)
+        .attr("r", 2)
         .style("fill", function(d) { 
           return colorGrid(d.continent); 
         })
