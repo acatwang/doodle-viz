@@ -25,12 +25,17 @@ var blue2red = d3.scale.linear()
   .range(["blue","white", "red"]);
 
 function filterByParCoords(parData){
-  console.log('hasjdkahjsdkah')
-  d3.selectAll("circle").classed("hidden", function(d) {
 
-      return (parData.indexOf(this.text) == -1);
+    parFilterCircles = document.getElementsByTagName('circle');
+    //console.log(parFilterCircles);
+
+    for (var par in parFilterCircles){
+        parFilterCircles[par].setAttribute('class','');
+        innerContent = parFilterCircles[par].textContent || parFilterCircles[par].innerText;
+        if (parData.indexOf(innerContent) == -1){
+          parFilterCircles[par].setAttribute('class','hidden');
       }
-    );
+    }
   }
 
 
