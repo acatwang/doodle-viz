@@ -44,13 +44,19 @@ d3.csv('static/data/doodle_data_v3.csv', function(data) {
         }
     })
 
-    console.log(chartData);
-    console.log(d);
+    /*console.log(chartData);
+    console.log(d);*/
+Highcharts.theme = {
+   colors: ["#aaeeee", "#ff0066", "#eeaaee",
+      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"]}
+
+
 
     var legend = "Collectivism";
     var pace ='Quick'
     $(function () {
         $('#chart').highcharts({
+
 
             chart: {
                 type: 'bubble',
