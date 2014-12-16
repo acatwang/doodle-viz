@@ -13,15 +13,15 @@ var parcoords = d3.parcoords()("#parcoord")
 drawParCoords();
 
 function drawParCoords(scatterplot_select){
-  console.log(scatterplot_select);
-  console.log(typeof(scatterplot_select)=='undefined');
+  //console.log(scatterplot_select);
+  //console.log(typeof(scatterplot_select)=='undefined');
   d3.csv('static/data/doodle_data_v3.csv', function(data) {
     console.log(data);
     dataOfInterest =  [];
     data.filter(function(row){
       dataOfInterest.push(_(row).pick('Country','IDV','Fraction of Consensus', 'Pace of Life', 'Response Time', 'Planning Ahead of Time'));  
     })
-    console.log(dataOfInterest);
+    //console.log(dataOfInterest);
     
      // slickgrid needs each data element to have an id
     data.forEach(function(d,i) { d.id = d.id || i; });
@@ -180,7 +180,7 @@ function drawParCoords(scatterplot_select){
       // Send data to scatterplots
       countrylist = []
       $.each(d,function(i,obj){
-        countrylist.push(obj['country']);
+        countrylist.push(obj['Country']);
       })
       console.log(countrylist);
       filterByParCoords(countrylist);
