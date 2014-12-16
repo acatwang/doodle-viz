@@ -44,9 +44,8 @@ function drawParCoords(scatterplot_select){
     parcoords
       .data(dataOfInterest)
       .render()
-      .brushMode("1D-axes")  // enable brushing
-      .reorderable(); // enable reordering
-    
+      .reorderable() // enable reordering
+      .brushMode("1D-axes");  // enable brushing
 
    
     // setting up grid
@@ -129,12 +128,12 @@ function drawParCoords(scatterplot_select){
     });
 
 
+
     // click to highlight row 
     grid.onClick.subscribe(function(e){
       var cell = grid.getCellFromEvent(e);
         console.log(cell.row);//Here is the row id, I want to change this row background color
         grid.setSelectedRows(cell.row);
-
     });
 
     grid.onSelectedRowsChanged.subscribe(function(e){
@@ -164,6 +163,7 @@ function drawParCoords(scatterplot_select){
     
     // update grid on brush
     parcoords.on("brush", function(d) {
+      parcoords.highlight(d);
       console.log("update grid on brush with this data");
       console.log(d);
       //Get an array of selected ids
@@ -187,12 +187,17 @@ function drawParCoords(scatterplot_select){
 
     });
 
+    $('g.dimension').click(function(){
+      console.log("click axis");
+      parcoords.brushReset();
+      parcoords.unhighlight();
 
+    })    
     if (typeof(scatterplot_select) != 'undefined'){
       console.log('update grid');
       gridUpdate($.grep(data, function(e){ return e.id in idlist_scatterplot}));
     }
-
+  
     function gridUpdate(data) {
       dataView.beginUpdate();
       dataView.setItems(data);

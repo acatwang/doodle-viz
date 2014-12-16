@@ -289,6 +289,8 @@ pc.render = function() {
 pc.render['default'] = function() {
   pc.clear('foreground');
   if (__.brushed) {
+    console.log("drawing brushed data");
+    console.log(__.brushed);
     __.brushed.forEach(path_foreground);
   } else {
     __.data.forEach(path_foreground);
@@ -466,6 +468,7 @@ function single_path(d, ctx) {
 }
 
 function path_foreground(d, i) {
+  console.log(d,i,ctx.foreground);
 	return color_path(d, i, ctx.foreground);
 };
 
@@ -622,6 +625,7 @@ var brush = {
 // @param newSelection - The new set of data items that is currently contained
 //                       by the brushes
 function brushUpdated(newSelection) {
+  console.log("called brushUpdated");
   console.log(newSelection);
   __.brushed = newSelection;
   events.brush.call(pc,__.brushed);
