@@ -96,7 +96,7 @@ svg {
   stroke: #ddd;
 }
 
-.axis path {
+#scatterplots .axis path {
   display: none;
 }
 

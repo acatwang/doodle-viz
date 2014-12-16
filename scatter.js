@@ -1,5 +1,5 @@
 var width = 1000,
-    size = 80,
+    size = 100,
     padding = 19.5;
 
 var x = d3.scale.linear()
@@ -85,8 +85,9 @@ function getCorrelation(var1, var2){
 
 d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
   var domainByTrait = {},
-      traits = d3.keys(data[0]).filter(function(d) { return d !== "continent" && d !== "country"; }),
-      traits = traits.slice(0,5)
+      traits = d3.keys(data[0]).filter(function(d) { return d !== "continent" && d !== "country"; });
+      console.log(traits);
+      traits = traits.slice(3,5).concat(traits.slice(7,10))
       n = traits.length;
 
 
