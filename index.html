@@ -42,23 +42,47 @@
   
 <!-- </head>
 <body> -->
-<h1> This is a visualization for SI649 final project </h1>
+<h1> Doodle Around the World: <br/>Online Scheduling Behavior Reflects Cultural Differences </h1>
+<p>The differences are time perception, cultural values, and group decision-making. They all have to do with your pace of life, individualist/collectivist societies, and how they plan their schedule.... </p>
 
 <!-- The chart visualize correaltion between fraction of consensus, individualism and paceOfLife -->
 
 <div id="chart" style="height: 400px; min-width: 310px; max-width: 800px; margin: 10 auto">
-    <p> There should be a chart here </p>
+ <!--    <p> There should be a chart here </p> -->
     <svg></svg>
 </div>
 
 <!-- The scatterplots and correlation heatmap -->
-<div id="scatterplots"></div> 
 
-<div id="parcoord" class="parcoords" style="height:500px;"></div>
+<div class="row" id="scatterplot_section">
+    <h3 style="text-align:center"> Scatterplots Matrix</h3>
+    <div class="col-md-offset-1 col-md-6" id="scatterplots"></div> 
+    <div class= "col-md-offset-0 col-md-4" id="scatterplot_desc">
+        <h4> Here are the things we looked at... </h4>
+        <p> <b>IDV</b>: The indivisualism score of the country. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The higher, the more indivisualism the country is. <br/> 
+        <b>Pace of Life</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The overall pace of life og the country. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It includes walking speed, postal speed, and clock accuracy. <br/>
+        <b> Planning Ahead of Time</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Average advance planning time in minutes across all polls. <br/>
+        <b> Response Time</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        The average response time per country. <br/>
+        <b> Fraction of Consensus</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The fraction of the polls that reaches a consesus meeting time among all participants.<br/>
+        <b> GDP</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        A country's GDP per capita. <br/>
+        <b> PDI</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Hofstede's Power Distance scores for each country. <br/>
+        <b> Number of Options</b>: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Average number of options provided by each participants for each country. <br/>
+        </p>
+    </div>
+</div>
 
-<div id="grid"></div> <!-- TODO: use slickGrid instead of The table-->
-<div id="pager"></div>
+<div id="pc_section">
+    <h3 style="text-align:center"> Parallel Coordinates </h3>
 
+    <div id="parcoord" class="parcoords" style="height:500px;"></div>
+    <div id="grid"></div> <!-- TODO: use slickGrid instead of The table-->
+    <div id="pager"></div>
+</div>
 <script src="scatter.js"></script>
 
 <script src="static/js/bbhighchart.js"></script>
