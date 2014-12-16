@@ -1,4 +1,4 @@
-d3.csv('static/data/doodle_data_v2.csv', function(data) {
+d3.csv('static/data/doodle_data_v3.csv', function(data) {
 
 
     var chartData = [ {'name':"North America", data:[]}, // 'name':"North America", 
@@ -13,32 +13,32 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     //Filter out the row has valid 
 
     data = data.filter(function(row){
-        return row['OverallPaceMeans'];
+        return row['Pace of Life'];
     });
 
 
     $.each(data, function(idx,obj){
     d = {'shape': "circle",
-            'z': parseFloat(obj['fraction_consensus_polls_open']),
+            'z': parseFloat(obj['Fraction of Consensus']),
             'x': parseFloat(obj['IDV']),
-            'y': parseFloat(obj['OverallPaceMeans']),
-            'country':obj['country']};
-    if (parseInt(obj['OverallPaceMeans']) != NaN){
+            'y': parseFloat(obj['Pace of Life']),
+            'country':obj['Country']};
+    if (parseInt(obj['Pace of Life']) != NaN){
         // d = [parseFloat(obj['IDV']), 
         //      parseFloat(obj['OverallPaceMeans']), 
         //      parseFloat(obj['fraction_consensus_polls_open']),
         //      obj['country']]
-        if (obj['continent'] == "North America"){
+        if (obj['Continent'] == "North America"){
           chartData[0].data.push(d);
 
         }
-        else if (obj['continent'] == "South America"){
+        else if (obj['Continent'] == "South America"){
           chartData[1].data.push(d);
         }
-        else if (obj['continent'] == "Europe"){
+        else if (obj['Continent'] == "Europe"){
           chartData[2].data.push(d);
         }
-        else if (obj['continent'] == "Asia"){
+        else if (obj['Continent'] == "Asia"){
           chartData[3].data.push(d);
         }
         }
