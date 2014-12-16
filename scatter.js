@@ -214,6 +214,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 //    console.log(domainByTrait);
       brushCell = this;
     }
+
   }
 
   // Highlight the selected circles.

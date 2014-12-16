@@ -75,6 +75,9 @@ input {
   bottom: 306px;
   height: 20px;
 }
+/* Select parent div when child div being hovered 
+* ref : http://jsfiddle.net/AGgpN/3/
+*/
 div.slick-row:hover>div.slick-cell{
   background-color: yellow;
 }
