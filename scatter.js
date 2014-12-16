@@ -48,32 +48,32 @@ function getCorrelation(var1, var2){
   if (var1.indexOf(var2) != -1) return 1
   else {
 
-    if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('GDP') != -1) {
-      return 0.4448433;
+    if (corrString.indexOf('Fraction of Consensus') != -1 && corrString.indexOf('Response Time') != -1) {
+      return 0.4057747;
     }
-    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('PDI') != -1){
-      return -0.2261446;
+    else if (corrString.indexOf('Fraction of Consensus') != -1 && corrString.indexOf('Planning Ahead of Time') != -1){
+      return 0.2919187;
     }
-    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('IDV') != -1) {
-      return 0.3449168;
+    else if (corrString.indexOf('Fraction of Consensus') != -1 && corrString.indexOf('Pace of Life') != -1) {
+      return -0.183921;
     }
-    else if (corrString.indexOf('numberOfPolls+C1') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
-      return -0.2623105;
+    else if (corrString.indexOf('Fraction of Consensus') != -1 && corrString.indexOf('IDV') != -1) {
+      return 0.07945725;
     }
-    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('PDI') != -1) {
-      return -0.4465107;
+    else if (corrString.indexOf('Response Time') != -1 && corrString.indexOf('Planning Ahead of Time') != -1) {
+      return 0.8513275;
     }
-    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('IDV') != -1) {
-      return 0.3213045;
+    else if (corrString.indexOf('Response Time') != -1 && corrString.indexOf('Pace of Life') != -1) {
+      return -0.4624661;
     }
-    else if (corrString.indexOf('GDP') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
-      return -0.5875585;
+    else if (corrString.indexOf('Response Time') != -1 && corrString.indexOf('IDV') != -1) {
+      return 0.5446857;
     }
-    else if (corrString.indexOf('PDI') != -1 && corrString.indexOf('IDV') != -1) {
-      return -0.593616;
+    else if (corrString.indexOf('Planning Ahead of Time') != -1 && corrString.indexOf('Pace of Life') != -1) {
+      return -0.6794371;
     }
-    else if (corrString.indexOf('PDI') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
-      return 0.6111763;
+    else if (corrString.indexOf('Planning Ahead of Time') != -1 && corrString.indexOf('IDV') != -1) {
+      return 0.6028784;
     }
     else if (corrString.indexOf('IDV') != -1 && corrString.indexOf('Pace of Life') != -1) {
       return -0.4305057;
