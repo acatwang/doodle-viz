@@ -15,11 +15,11 @@ drawParCoords();
 function drawParCoords(scatterplot_select){
   console.log(scatterplot_select);
   console.log(typeof(scatterplot_select)=='undefined');
-  d3.csv('static/data/doodle_data_v2.csv', function(data) {
-    //console.log(data);
+  d3.csv('static/data/doodle_data_v3.csv', function(data) {
+    console.log(data);
     dataOfInterest =  [];
     data.filter(function(row){
-      dataOfInterest.push(_(row).pick('country','IDV','OverallPaceMeans','numberofoptions_mean','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
+      dataOfInterest.push(_(row).pick('Country','IDV','Pace of Life','Fraction of Consensus' ));//,'Response Time','planningahead_meanminutes','responsetime_mean','fraction_consensus_polls_open'));  
     })
     console.log(dataOfInterest);
     

@@ -468,7 +468,7 @@ function single_path(d, ctx) {
 }
 
 function path_foreground(d, i) {
-  console.log(d,i,ctx.foreground);
+  //console.log(d,i,ctx.foreground);
 	return color_path(d, i, ctx.foreground);
 };
 
