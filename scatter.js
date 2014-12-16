@@ -18,15 +18,13 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .ticks(5);
 
-var colorGrid = d3.scale.category10();
-
 var colorContinent = d3.scale.ordinal()
     .domain(["Asia", "Europe", "South America", "North America", "Africa", "Australia"])
     .range(["rgb(247, 163, 92)", "rgb(144, 237, 125)", "rgb(67, 67, 72)", "rgb(124, 181, 236)", "rgb(181, 100, 71)","rgb(85, 181, 204)"])
 
 var blue2red = d3.scale.linear()
   .domain([-1,0,1])
-  .range(["blue","white", "red"]);
+  .range(["red","white", "blue"]);
 
 
 function filterByParCoords(parData){
@@ -95,7 +93,7 @@ function getCorrelation(var1, var2){
 d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
   var domainByTrait = {},
       traits = d3.keys(data[0]).filter(function(d) { return d !== "Continent" && d !== "Country"; });
-      console.log(traits);
+      //console.log(traits);
       traits = traits.slice(3,5).concat(traits.slice(7,10))
       n = traits.length;
 
@@ -141,7 +139,7 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       .attr("transform", function(d) { return "translate(" + (n - d.i - 1) * size + "," + d.j * size + ")"; })
       .each(plot);
 
-  // Titles for the diagonal.
+  // Titles for the variables.
   cell.filter(function(d) { return d.i === d.j; }).append("text")
       .attr("x", padding)
       .attr("y", padding)
@@ -204,13 +202,9 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
         .style("fill", function(d) { 
           return colorContinent(d.Continent); 
         })
-        .text(function(d) {return d["Country"];})
-        .append("svg:title")
-        .text(function(d) { return d.x; });
+        .text(function(d) {return d["Country"];});
 
   }
-
-  
 
   var brushCell;
 
