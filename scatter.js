@@ -206,6 +206,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
 
   // Clear the previously-active brush
   function brushstart(p) {
+    parcoords.brushReset();
     if (brushCell !== this) {
       d3.select(brushCell).call(brush.clear());
       x.domain(domainByTrait[p.x]);
@@ -228,7 +229,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
       }
       else return 1;
     });
-    console.log(brushedCountries);
+    //console.log(brushedCountries);
 
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     updateParCoords(brushedCountries); 
