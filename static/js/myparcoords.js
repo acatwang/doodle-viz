@@ -129,10 +129,19 @@ d3.csv('static/data/doodle_data_v2.csv', function(data) {
     $.each(d,function(i,obj){
       idlist.push(obj.id);
     })
-    
+
     console.log(idlist);
     console.log($.grep(data, function(e){ return e.id in idlist}));
     gridUpdate($.grep(data, function(e){ return e.id in idlist}));
+
+
+    // Send data to scatterplots
+    countrylist = []
+    $.each(d,function(i,obj){
+      countrylist.push(obj['country']);
+    })
+    console.log(countrylist);
+    filterByParCoords(countrylist);
 
 
   });
