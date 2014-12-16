@@ -114,7 +114,7 @@ function drawParCoords(scatterplot_select){
       
       // Send country name to scatterplot
       console.log([data[i].country]);
-      filterByParCoords([data[i].country]);
+      filterByParCoords([data[i].Country]);
     });
 
     grid.onMouseLeave.subscribe(function(e,args) {
@@ -122,7 +122,7 @@ function drawParCoords(scatterplot_select){
       
       countrylist = [] ;
       $.each(data, function(i,obj){
-        countrylist.push(obj['country']);
+        countrylist.push(obj['Country']);
       })
       filterByParCoords(countrylist);
     });
