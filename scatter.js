@@ -75,18 +75,19 @@ function getCorrelation(var1, var2){
     else if (corrString.indexOf('PDI') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
       return 0.6111763;
     }
-    else if (corrString.indexOf('IDV') != -1 && corrString.indexOf('OverallPaceMeans') != -1) {
+    else if (corrString.indexOf('IDV') != -1 && corrString.indexOf('Pace of Life') != -1) {
       return -0.4305057;
     }
-      
+    else 
+      return 0;
   }
 
 }
 
 
-d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
+d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
   var domainByTrait = {},
-      traits = d3.keys(data[0]).filter(function(d) { return d !== "continent" && d !== "country"; });
+      traits = d3.keys(data[0]).filter(function(d) { return d !== "Continent" && d !== "Country"; });
       console.log(traits);
       traits = traits.slice(3,5).concat(traits.slice(7,10))
       n = traits.length;
@@ -196,9 +197,9 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
         .attr("cy", function(d) { return y(d[p.y]); })
         .attr("r", 2)
         .style("fill", function(d) { 
-          return colorGrid(d.continent); 
+          return colorGrid(d.Continent); 
         })
-        .text(function(d) {return d["country"];});
+        .text(function(d) {return d["Country"];});
 
   }
 
@@ -210,7 +211,7 @@ d3.csv("static/data/doodle_data_v2.csv", function(error, data) {
   function brushstart(p) {
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     // Draw a new ParCoord when the brush reset
-    console.log("clear brush, draw a new PC");
+    //console.log("clear brush, draw a new PC");
     //drawParCoords();
     parcoords.brushReset();
 
