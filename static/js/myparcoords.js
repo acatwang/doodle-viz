@@ -6,8 +6,12 @@ var blue_to_brown = d3.scale.linear()
 var color = function(d) { return blue_to_brown(1); };
 
 
+var colorContinent = d3.scale.ordinal()
+    .domain(["Asia", "Europe", "South America", "North America", "Africa", "Australia"])
+    .range(["rgb(247, 163, 92)", "rgb(144, 237, 125)", "rgb(67, 67, 72)", "rgb(124, 181, 236)", "rgb(181, 100, 71)","rgb(85, 181, 204)"])
+
+
 var parcoords = d3.parcoords()("#parcoord")
-  .color(color)
   .alpha(0.4);
 
 drawParCoords();
@@ -43,6 +47,8 @@ function drawParCoords(scatterplot_select){
 
     parcoords
       .data(dataOfInterest)
+      .color(function(d) { console.log(d);return colorContinent(data[d.id]['Continent']); })
+
       .render()
       .reorderable() // enable reordering
       .brushMode("1D-axes");  // enable brushing
