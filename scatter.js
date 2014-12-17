@@ -1,3 +1,13 @@
+/*Scatterplot & Heatmap matrix
+SI 649 
+This reads a doodle-data csv and renders a scatterplot matrix 
+with correlation colors for the variables. Connects with a parallel line visualization
+via filterByParCoords() and updateParCoords()
+
+adapted from  Iris flowers example at http://bl.ocks.org/
+
+
+*/
 var width = 1000,
     size = 100,
     padding = 19.5;
@@ -90,10 +100,9 @@ function getCorrelation(var1, var2){
 }
 
 
-d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
+d3.csv("static/data/doodle_data_v3.csv", function(data) {
   var domainByTrait = {},
       traits = d3.keys(data[0]).filter(function(d) { return d !== "Continent" && d !== "Country"; });
-      //console.log(traits);
       traits = traits.slice(3,5).concat(traits.slice(7,10))
       n = traits.length;
 
@@ -111,7 +120,6 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
       .on("brush", brushmove)
       .on("brushend", brushend);
 
-  //var svg = d3.select("body").append("svg")
   var svg = d3.select("#scatterplots").append("svg")
       .attr("width", size * n + padding)
       .attr("height", size * n + padding)
@@ -237,8 +245,6 @@ d3.csv("static/data/doodle_data_v3.csv", function(error, data) {
     });
     // - -- - ------- UPDATE PARCOORD DATA HERE --- ----- ------
     updateParCoords(brushedCountries); 
-    console.log("brushedCountries: ", brushedCountries);
-    //parcoords.data(countries); 
   }
 
   // If the brush is empty, select all circles.
